@@ -1,0 +1,10 @@
+{
+  "description": "A premium romantic website showcasing a couple's story with interactive love letters, elegant photo gallery, and personalized About Us section.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
