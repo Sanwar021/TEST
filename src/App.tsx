@@ -460,7 +460,9 @@ function Layout() {
       <main className="site-main relative z-10 flex-1 px-6 pb-24">
         <div
           className={`${
-            loc.pathname === "/gallery" ? "max-w-6xl" : "max-w-4xl"
+            loc.pathname === "/gallery" || loc.pathname === "/"
+              ? "max-w-6xl"
+              : "max-w-4xl"
           } mx-auto pt-10 sm:pt-16 animate-in fade-in slide-in-from-bottom-4 duration-700`}
         >
           <Outlet />
@@ -488,63 +490,92 @@ function Home() {
 
   return (
     <>
-      <div className="text-center mb-10">
-        <div className="flex justify-center mb-6">
-          <div className="home-love-orbit">
-            <Monogram size={64} className="relative z-10" />
-            <Heart className="orbit-heart orbit-heart-one" size={15} />
-            <Heart className="orbit-heart orbit-heart-two" size={12} />
-            <Heart className="orbit-heart orbit-heart-three" size={10} />
+      <section className="home-hero mb-14">
+        <div className="home-hero-copy">
+          <div className="home-hero-brand">
+            <Monogram size={52} />
+            <div>
+              <div className="text-[10px] uppercase tracking-[4px] text-gold-light">
+                A private love letter
+              </div>
+              <div className="mt-1 font-display text-sm italic text-cream/50">
+                Sanwar to Anindita
+              </div>
+            </div>
+          </div>
+          <div className="home-hero-rule" />
+          <h1 className="font-display text-5xl font-semibold leading-[0.94] sm:text-6xl lg:text-7xl">
+            For the girl who has
+            <em className="mt-2 block text-gold-light">all of me.</em>
+          </h1>
+          <p className="mt-7 max-w-xl text-lg leading-8 text-cream/72">
+            Cats, French fries, sunlight, and rain — four small things you love,
+            and one very obvious fifth one beneath all of them: me, loving you
+            back.
+          </p>
+          <div className="home-hero-signature">
+            <span />
+            <p>Written for one heart only</p>
           </div>
         </div>
-        <div className="text-xs uppercase tracking-[4px] text-gold-light mb-4">
-          A little something · Sanwar to Anindita
+        <div className="home-hero-portrait">
+          <img
+            src="/photos/memory-03.jpg"
+            alt="Sanwar and Anindita together at sunset"
+            className="h-full w-full object-cover"
+          />
+          <div className="home-hero-photo-wash" />
+          <div className="home-hero-photo-note">
+            <Heart size={14} />
+            <span>My favorite place is beside you</span>
+          </div>
         </div>
-        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold mb-5 leading-tight">
-          For the girl who has{" "}
-          <em className="text-gold-light italic">all of me</em>
-        </h1>
-        <p className="text-lg text-cream/80 leading-relaxed max-w-xl mx-auto">
-          Cats, French fries, sunlight, and rain — four small things you love,
-          and one very obvious fifth one hiding underneath all of them: me,
-          loving you back.
-        </p>
-      </div>
+      </section>
 
-      <section className="mb-12">
+      <section className="convocation-showcase mb-12">
         <div className="mb-6 flex items-end justify-between gap-4">
           <div>
             <div className="mb-2 text-[10px] uppercase tracking-[4px] text-gold-light">
-              My favorite views
+              A milestone we shared
             </div>
             <h2 className="font-display text-3xl font-semibold sm:text-4xl">
-              A glimpse of <em className="text-gold-light">us</em>
+              Our <em className="text-gold-light">convocation</em> story
             </h2>
           </div>
           <button
             onClick={() => navigate("/gallery")}
-            className="hidden items-center gap-2 text-xs uppercase tracking-[2px] text-gold transition hover:text-gold-light sm:flex"
+            className="home-gallery-cta hidden sm:flex"
           >
-            See all 155 <ArrowRight size={14} />
+            <Camera size={15} /> Photo gallery <ArrowRight size={14} />
           </button>
         </div>
         <div className="home-memory-grid">
           {[
             {
-              src: "/photos/memory-03.jpg",
-              caption: "You, me, and the last light of the day.",
+              src: "/photos/convocation/convocation-01.webp",
+              caption: "The day every dream felt close enough to hold.",
+              position: "center 34%",
             },
             {
-              src: "/photos/memory-04.jpg",
-              caption: "So proud of you, so lucky to be beside you.",
+              src: "/photos/convocation/convocation-02.webp",
+              caption: "A little care before stepping into our next chapter.",
+              position: "center 40%",
             },
             {
-              src: "/photos/memory-08.jpg",
-              caption: "The face I would choose in every room.",
+              src: "/photos/convocation/convocation-03.webp",
+              caption: "Side by side, dressed in everything we worked for.",
+              position: "center 32%",
             },
             {
-              src: "/photos/memory-14.jpg",
-              caption: "Cold nights have never felt this warm.",
+              src: "/photos/convocation/convocation-04.webp",
+              caption:
+                "Two journeys, one wall, and a future waiting beyond it.",
+              position: "center 38%",
+            },
+            {
+              src: "/photos/convocation/convocation-05.webp",
+              caption: "The way I looked at you said everything that day.",
+              position: "center 38%",
             },
           ].map((photo, index) => (
             <button
@@ -557,13 +588,26 @@ function Home() {
                 src={photo.src}
                 alt={photo.caption}
                 className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                style={{ objectPosition: photo.position }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-transparent to-transparent" />
+              <span className="home-memory-index">
+                {String(index + 1).padStart(2, "0")}
+              </span>
               <p className="absolute inset-x-0 bottom-0 p-4 text-left font-display text-lg italic leading-tight text-cream sm:p-5 sm:text-xl">
                 {photo.caption}
               </p>
             </button>
           ))}
+        </div>
+        <div className="mt-5 flex justify-center sm:hidden">
+          <button
+            onClick={() => navigate("/gallery")}
+            className="home-gallery-cta"
+          >
+            <Camera size={16} /> Explore all 155 memories{" "}
+            <ArrowRight size={15} />
+          </button>
         </div>
       </section>
 
@@ -636,7 +680,7 @@ function Home() {
 
             <button
               onClick={!revealed ? () => setRevealed(true) : undefined}
-              className="relative w-full max-w-md min-h-[300px] bg-gradient-to-br from-emerald-light/20 to-velvet-deep/40 border border-gold/35 rounded-xl p-8 sm:p-10 flex flex-col items-center justify-center cursor-pointer transition-transform hover:-translate-y-1 text-left"
+              className="relative w-full max-w-md min-h-[300px] bg-gradient-to-br from-wine/25 to-velvet-deep/50 border border-gold/35 rounded-xl p-8 sm:p-10 flex flex-col items-center justify-center cursor-pointer transition-transform hover:-translate-y-1 text-left"
             >
               {!revealed ? (
                 <div className="text-center">
@@ -746,7 +790,7 @@ function Home() {
         </button>
         <button
           onClick={() => navigate("/about")}
-          className="group text-left border border-gold/30 rounded-2xl p-8 bg-gradient-to-br from-velvet-deep/60 to-emerald-deep/40 transition-all hover:-translate-y-1 hover:border-gold/60"
+          className="group text-left border border-gold/30 rounded-2xl p-8 bg-gradient-to-br from-velvet-deep/70 to-wine/25 transition-all hover:-translate-y-1 hover:border-gold/60"
         >
           <Heart size={24} className="text-gold mb-4" />
           <h3 className="font-display text-2xl text-gold-light mb-3">
@@ -1076,7 +1120,7 @@ function About() {
         {aboutLoves.map((item, i) => (
           <div
             key={item.title}
-            className="flex gap-5 p-6 border border-gold/30 rounded-xl bg-gradient-to-br from-velvet-deep/50 to-emerald-deep/30 animate-in fade-in slide-in-from-bottom-4"
+            className="flex gap-5 p-6 border border-gold/30 rounded-xl bg-gradient-to-br from-velvet-deep/65 to-wine/20 animate-in fade-in slide-in-from-bottom-4"
             style={{
               animationDelay: `${i * 100}ms`,
               animationFillMode: "both",
